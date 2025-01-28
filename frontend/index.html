@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Watermark</title>
+    <style>
+      .video-container {
+        position: relative;
+        width: 60%;
+        margin: 2rem auto;
+      }
+      #videoPlayer {
+        width: 100%;
+      }
+      #watermark {
+        position: absolute;
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        opacity: 0.4;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        user-select: none;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Video Player with Dynamic Watermark</h1>
+
+    <div class="video-container">
+      <video id="videoPlayer" controls>
+        <!-- there shoud be dynamic video path -->
+        <source src="/videos/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div id="watermark">ID2910</div>
+    </div>
+
+    <script>
+      const watermark = document.getElementById("watermark");
+
+      function showWatermark() {
+        watermark.style.display = "block";
+        updateWatermarkPosition();
+        setTimeout(hideWatermark, 2000); // hide after 2 seconds || shows 2 seconds and hides
+      }
+
+      function hideWatermark() {
+        watermark.style.display = "none"; // hide watermark
+        setTimeout(showWatermark, 5000); // show after 5 seconds || hides 5 seconds and shows
+      }
+
+      showWatermark();
+
+      // random position of watermark
+      function updateWatermarkPosition() {
+        const videoContainer = document.querySelector(".video-container");
+        const videoWidth = videoContainer.clientWidth; // with of video container
+        const videoHeight = videoContainer.clientHeight; // height of video container
+
+        // Watermarkning kengligi va balandligi
+        const watermarkWidth = watermark.offsetWidth;
+        const watermarkHeight = watermark.offsetHeight;
+
+        // random `top` and `left` position
+        const randomTop = Math.floor(
+          Math.random() * (videoHeight - watermarkHeight)
+        );
+        const randomLeft = Math.floor(
+          Math.random() * (videoWidth - watermarkWidth)
+        );
+
+        // update watermark position
+        watermark.style.top = `${randomTop}px`;
+        watermark.style.left = `${randomLeft}px`;
+      }
+    </script>
+  </body>
+</html>
