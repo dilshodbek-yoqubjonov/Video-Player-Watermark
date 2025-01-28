@@ -41,6 +41,6 @@
 4. **Start the server:**
 
    ```bash
-   node server.js
+   npm run dev
 
    ```
